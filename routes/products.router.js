@@ -5,9 +5,13 @@ const ProductsService = require('./../services/products.services')
 const router = express.Router();
 const service = new ProductsService();
 
-router.get('/', (req,res) => {
-    const products = service.find();
-    res.json(products);
+router.get('/', async (req, res, next) => {
+    try{
+        const products = await service.find();
+        res.json(products);
+    }catch(error){
+        next(error);
+    }
 });
 
 router.get('/filter', (req, res) => {
