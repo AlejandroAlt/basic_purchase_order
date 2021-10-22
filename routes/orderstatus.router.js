@@ -5,11 +5,14 @@ const OrderStatusService = require('./../services/orderstatus.services');
 const router = express.Router();
 const service = new OrderStatusService();
 
-router.get('/', (req,res) => {
-    const orderstatus = service.find();
-    res.json(orderstatus);
+router.get('/', async(req, res, next) => {
+    try{
+        const orderstatus = await service.find();
+        res.json(orderstatus);
+    }catch{
+        next(error);
+    }
 });
-
 router.get('/:id', (req,res) => {
     const {id} = req.params;
     const status = service.findOne(id);

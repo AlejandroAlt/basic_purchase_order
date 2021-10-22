@@ -1,5 +1,7 @@
 const faker = require('faker');
 
+const sequelize = require('../libs/sequelize');
+
 class RolesService{
 
     constructor(){
@@ -16,6 +18,7 @@ class RolesService{
             })
         }
     }
+
     create(data){
         const newRole = {
             id: faker.datatype.uuid(),
@@ -25,8 +28,10 @@ class RolesService{
         return newRole;
     }
 
-    find(){
-        return this.roles;
+    async find(){
+        const query = 'Select now()';
+        const [data] = await sequelize.query(query);
+        return data;
     }
 
     findOne(id){

@@ -5,9 +5,13 @@ const RolesService = require('./../services/roles.services');
 const router = express.Router();
 const service = new RolesService();
 
-router.get('/', (req,res) => {
-    const roles = service.find();
-    res.json(roles);
+router.get('/', async(req, res, next) => {
+    try{
+        const roles = await service.find();
+        res.json(roles);
+    }catch{
+        next(error);
+    }
 });
 
 router.get('/:id', (req,res) => {

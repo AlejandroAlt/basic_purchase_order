@@ -5,9 +5,13 @@ const OrdersService = require('./../services/orders.services');
 const router = express.Router();
 const service = new OrdersService();
 
-router.get('/', (req,res) => {
-    const orders = service.find();
-    res.json(orders);
+router.get('/', async(req, res, next) => {
+    try{
+        const orders = await service.find();
+        res.json(orders);
+    }catch{
+        next(error);
+    }
 });
 
 router.get('/:id', (req,res) => {

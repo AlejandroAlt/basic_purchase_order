@@ -1,5 +1,7 @@
 const faker = require('faker');
 
+const sequelize = require('../libs/sequelize');
+
 class OrderStatusService{
 
     constructor(){
@@ -25,8 +27,10 @@ class OrderStatusService{
         return newOrderStatus;
     }
 
-    find(){
-        return this.orderstatus;
+    async find(){
+        const query = 'Select now()';
+        const [data] = await sequelize.query(query);
+        return data;
     }
 
     findOne(id){

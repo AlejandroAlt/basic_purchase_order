@@ -5,9 +5,13 @@ const UsersService = require('./../services/users.services');
 const router = express.Router();
 const service = new UsersService();
 
-router.get('/', (req,res) => {
-    const users = service.find();
-    res.json(users);
+router.get('/', async(req, res, next) => {
+    try{
+        const users = await service.find();
+        res.json(users);
+    }catch{
+        next(error);
+    }
 });
 
 router.get('/:id', (req,res) => {
