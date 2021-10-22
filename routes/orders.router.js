@@ -1,44 +1,38 @@
 const express = require ('express');
 
-const router = express.Router();
+const OrdersService = require('./../services/orders.services');
 
-router.get('/filter', (req, res) => {
-    res.send('I am a filter');
+const router = express.Router();
+const service = new OrdersService();
+
+router.get('/', (req,res) => {
+    const orders = service.find();
+    res.json(orders);
 });
 
 router.get('/:id', (req,res) => {
     const {id} = req.params;
-    res.json({
-        id,
-        name: 'po01',
-        price: 100
-    })
+    const order = service.findOne(id);
+    res.json(order);
 });
 
 router.post('/', (req, res) => {
     const body = req.body;
-    res.json({
-        message: 'created',
-        data: body
-    })
+    const newOrder = service.create(body);
+    res.status(201).json(newOrder);
 });
 
 router.patch('/:id', (req, res) => {
     const {id} = req.params;
     const body = req.body;
-    res.json({
-        message: 'updated',
-        data: body,
-        id
-    })
+    const order = service.update(id, body);
+    res.json(order);
 });
 
 router.delete('/:id', (req, res) => {
     const {id} = req.params;
-    res.json({
-        message: 'deleted',
-        id
-    })
+    const rta = service.delete(id);
+    res.json(rta);
 });
 
 module.exports = router; 

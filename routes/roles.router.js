@@ -1,44 +1,38 @@
 const express = require ('express');
 
-const router = express.Router();
+const RolesService = require('./../services/roles.services');
 
-router.get('/filter', (req, res) => {
-    res.send('I am a filter');
+const router = express.Router();
+const service = new RolesService();
+
+router.get('/', (req,res) => {
+    const roles = service.find();
+    res.json(roles);
 });
 
 router.get('/:id', (req,res) => {
     const {id} = req.params;
-    res.json({
-        id,
-        name: 'rol01',
-        price: 100
-    })
+    const role = service.findOne(id);
+    res.json(role);
 });
 
 router.post('/', (req, res) => {
     const body = req.body;
-    res.json({
-        message: 'created',
-        data: body
-    })
+    const newRole = service.create(body);
+    res.status(201).json(newRole);
 });
 
 router.patch('/:id', (req, res) => {
     const {id} = req.params;
     const body = req.body;
-    res.json({
-        message: 'updated',
-        data: body,
-        id
-    })
+    const role = service.update(id, body);
+    res.json(role);
 });
 
 router.delete('/:id', (req, res) => {
     const {id} = req.params;
-    res.json({
-        message: 'deleted',
-        id
-    })
+    const rta = service.delete(id);
+    res.json(rta);
 });
 
 module.exports = router; 
