@@ -1,6 +1,6 @@
 const faker = require('faker');
 
-const sequelize = require('../libs/sequelize');
+const {models} = require('../libs/sequelize');
 
 class RolesService{
 
@@ -29,9 +29,8 @@ class RolesService{
     }
 
     async find(){
-        const query = 'Select now()';
-        const [data] = await sequelize.query(query);
-        return data;
+        const rat = await models.Role.findAll();
+        return rat;
     }
 
     findOne(id){

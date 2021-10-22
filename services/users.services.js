@@ -34,7 +34,6 @@ class UsersService{
     }
 
     async find(){
-        const query = 'Select now()';
         const rta = await models.User.findAll();
         return rta;
     }

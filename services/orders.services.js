@@ -1,6 +1,6 @@
 const faker = require('faker');
 
-const sequelize = require('../libs/sequelize');
+const {models} = require('../libs/sequelize');
 
 class OrdersService{
 
@@ -33,9 +33,8 @@ class OrdersService{
     }
 
     async find(){
-        const query = 'Select now()';
-        const [data] = await sequelize.query(query);
-        return data;
+        const rta = await models.Order.findAll();
+        return rta;
     }
 
     findOne(id){
