@@ -1,35 +1,10 @@
-const faker = require('faker');
-
 const {models} = require('../libs/sequelize');
 
 class UsersService{
+    constructor() {}
 
-    constructor(){
-        this.users = [];
-        this.generate();
-    }
-
-    generate(){
-        const limit = 100;
-        for (let index = 0; index < limit; index++) {
-            this.users.push({
-                id: faker.datatype.uuid(),
-                name: faker.internet.userName(),
-                phone: faker.phone.phoneNumber(),
-                email: faker.internet.email(),
-                password: faker.internet.password(),
-                active: 1,
-                rolId: 1
-            })
-        }
-    }
-
-    create(data){
-        const newUser = {
-            id: faker.datatype.uuid(),
-            ...data
-        }
-        this.users.push(newUser);
+    async create(data){
+        const newUser = await models.User.create(data);
         return newUser;
     }
 
@@ -38,29 +13,20 @@ class UsersService{
         return rta;
     }
 
-    findOne(id){
-        return this.users.find(item => item.id === id);
+    async findOne(id){
+        const user = await models.User.findByPk(id);
+        return user;
     }
 
-    update(id,changes){
-        const index = this.users.findIndex(item => item.id === id);
-        if (index === -1) {
-            throw new Error('user not found')
-        }
-        const user = this.users[index];
-        this.users[index] = {
-            ...user,
-            ...changes
-        };
-        return this.users[index];
+    async update(id, changes){
+        const user = await this.findOne(id);
+        const rta = await user.update(changes);
+        return rta;
     }
 
-    delete(id){
-        const index = this.users.findIndex(item => item.id === id);
-        if (index === -1) {
-            throw new Error('user not found')
-        }
-        this.users.splice(index, 1);
+    async delete(id){
+        const user = await this.findOne(id);
+        await user.destroy();
         return {id};
     }
 }
