@@ -5,38 +5,59 @@ const ProductsService = require('./../services/products.services')
 const router = express.Router();
 const service = new ProductsService();
 
-router.get('/', async (req, res, next) => {
-    try{
-        const products = await service.find();
-        res.json(products);
-    }catch(error){
-        next(error);
-    }
+router.get('/',
+    async(req, res, next) => {
+        try{
+            const products = await service.find();
+            res.json(products);
+        } catch(error){
+            next(error);
+        }
 });
 
-router.get('/:id', (req,res) => {
-    const {id} = req.params;
-    const product = service.findOne(id);
-    res.json(product);
+router.get('/:id',
+    async(req, res, next) => {
+        try{
+            const {id} = req.params;
+            const product = await service.findOne(id);
+            res.json(product);
+        } catch(error) {
+            next(error);
+        }
 });
 
-router.post('/', (req, res) => {
-    const body = req.body;
-    const newProduct = service.create(body);
-    res.status(201).json(newProduct);
+router.post('/',
+    async(req, res, next) => {
+        try{
+            const body = req.body;
+            const newProduct = await service.create(body);
+            res.status(201).json(newProduct);
+        } catch(error) {
+            next(error);
+        }
 });
 
-router.patch('/:id', (req, res) => {
-    const {id} = req.params;
-    const body = req.body;
-    const product = service.update(id, body);
-    res.json(product);
+router.patch('/:id',
+    async(req, res, next) => {
+        try{
+            const {id} = req.params;
+            const body = req.body;
+            const product = await service.update(id, body);
+            res.json(product);
+        } catch(error) {
+            next(error);
+        }
 });
 
-router.delete('/:id', (req, res) => {
-    const {id} = req.params;
-    const rta = service.delete(id);
-    res.json(rta);
+router.delete('/:id',
+    async(req, res, next) => {
+        try{
+            const {id} = req.params;
+            await service.delete(id);
+            res.status(201).json({id});
+        } catch(error) {
+            next(error);
+        }
 });
 
 module.exports = router;

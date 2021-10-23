@@ -5,38 +5,59 @@ const OrdersService = require('./../services/orders.services');
 const router = express.Router();
 const service = new OrdersService();
 
-router.get('/', async(req, res, next) => {
-    try{
-        const orders = await service.find();
-        res.json(orders);
-    }catch{
-        next(error);
-    }
+router.get('/',
+    async(req, res, next) => {
+        try{
+            const orders = await service.find();
+            res.json(orders);
+        } catch(error){
+            next(error);
+        }
 });
 
-router.get('/:id', (req,res) => {
-    const {id} = req.params;
-    const order = service.findOne(id);
-    res.json(order);
+router.get('/:id',
+    async(req, res, next) => {
+        try{
+            const {id} = req.params;
+            const order = await service.findOne(id);
+            res.json(order);
+        } catch(error){
+            next(error);
+        }
 });
 
-router.post('/', (req, res) => {
-    const body = req.body;
-    const newOrder = service.create(body);
-    res.status(201).json(newOrder);
+router.post('/',
+    async(req, res, next) => {
+        try{
+            const body = req.body;
+            const newOrder = await service.create(body);
+            res.status(201).json(newOrder);
+        } catch(error) {
+            next(error);
+        }
 });
 
-router.patch('/:id', (req, res) => {
-    const {id} = req.params;
-    const body = req.body;
-    const order = service.update(id, body);
-    res.json(order);
+router.patch('/:id',
+    async(req, res, next) => {
+        try{
+            const {id} = req.params;
+            const body = req.body;
+            const order = await service.update(id, body);
+            res.json(order);
+        } catch(error){
+            next(error);
+        }
 });
 
-router.delete('/:id', (req, res) => {
-    const {id} = req.params;
-    const rta = service.delete(id);
-    res.json(rta);
+router.delete('/:id',
+    async(req, res, next) => {
+        try{
+            const {id} = req.params;
+            await service.delete(id);
+            res.status(201).json({id});
+        } catch(error) {
+            next(error);
+        }
 });
 
 module.exports = router; 

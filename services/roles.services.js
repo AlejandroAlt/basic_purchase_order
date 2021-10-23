@@ -1,61 +1,32 @@
-const faker = require('faker');
-
 const {models} = require('../libs/sequelize');
 
 class RolesService{
+    constructor() {}
 
-    constructor(){
-        this.roles = [];
-        this.generate();
-    }
-
-    generate(){
-        const limit = 100;
-        for (let index = 0; index < limit; index++) {
-            this.roles.push({
-                id: faker.datatype.uuid(),
-                name: 'Administrator'
-            })
-        }
-    }
-
-    create(data){
-        const newRole = {
-            id: faker.datatype.uuid(),
-            ...data
-        }
-        this.roles.push(newRole);
+    async create(data){
+        const newRole = await models.Role.create(data);
         return newRole;
     }
 
     async find(){
-        const rat = await models.Role.findAll();
-        return rat;
+        const rta = await models.Role.findAll();
+        return rta;
     }
 
-    findOne(id){
-        return this.roles.find(item => item.id === id);
+    async findOne(id){
+        const role = await models.Role.findByPk(id);
+        return role;
     }
 
-    update(id,changes){
-        const index = this.roles.findIndex(item => item.id === id);
-        if (index === -1) {
-            throw new Error('Role not found')
-        }
-        const role = this.roles[index];
-        this.roles[index] = {
-            ...role,
-            ...changes
-        };
-        return this.roles[index];
+    async update(id, changes){
+        const role = await this.findOne(id);
+        const rta = await role.update(changes);
+        return rta;
     }
 
-    delete(id){
-        const index = this.roles.findIndex(item => item.id === id);
-        if (index === -1) {
-            throw new Error('Role not found')
-        }
-        this.roles.splice(index, 1);
+    async delete(id){
+        const role = await this.findOne(id);
+        await role.destroy();
         return {id};
     }
 }
