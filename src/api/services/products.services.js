@@ -1,4 +1,9 @@
-const {models} = require('../../../libs/sequelize');
+const path = require('path');
+
+const {models} = require(path.join(
+    process.cwd(),
+    '/common/config/database/configuration'
+    ));
 
 class ProductsService{
     constructor() {}

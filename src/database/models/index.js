@@ -4,7 +4,7 @@ const {Order, orderSchema } = require('./order.model');
 const {Role, roleSchema } = require('./role.model');
 const {OrderStatus, orderStatusSchema } = require('./orderstatus.model');
 
-function setupModels(sequelize){
+function initialModels(sequelize){
     User.init(userSchema, User.config(sequelize));
     Product.init(productSchema, Product.config(sequelize));
     Order.init(orderSchema, Order.config(sequelize));
@@ -12,4 +12,4 @@ function setupModels(sequelize){
     OrderStatus.init(orderStatusSchema, OrderStatus.config(sequelize));
 }
 
-module.exports = setupModels;
+module.exports = initialModels;
