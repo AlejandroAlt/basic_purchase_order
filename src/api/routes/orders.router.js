@@ -1,63 +1,13 @@
 const express = require ('express');
-
-const OrdersService = require('./../services/orders.services');
-
 const router = express.Router();
-const service = new OrdersService();
 
-router.get('/',
-    async(req, res, next) => {
-        try{
-            const orders = await service.find();
-            res.json(orders);
-        } catch(error){
-            next(error);
-        }
-});
+const OrdersController = require('./../controllers/orders.controller');
+const controller = new OrdersController();
 
-router.get('/:id',
-    async(req, res, next) => {
-        try{
-            const {id} = req.params;
-            const order = await service.findOne(id);
-            res.json(order);
-        } catch(error){
-            next(error);
-        }
-});
-
-router.post('/',
-    async(req, res, next) => {
-        try{
-            const body = req.body;
-            const newOrder = await service.create(body);
-            res.status(201).json(newOrder);
-        } catch(error) {
-            next(error);
-        }
-});
-
-router.patch('/:id',
-    async(req, res, next) => {
-        try{
-            const {id} = req.params;
-            const body = req.body;
-            const order = await service.update(id, body);
-            res.json(order);
-        } catch(error){
-            next(error);
-        }
-});
-
-router.delete('/:id',
-    async(req, res, next) => {
-        try{
-            const {id} = req.params;
-            await service.delete(id);
-            res.status(201).json({id});
-        } catch(error) {
-            next(error);
-        }
-});
+router.route ('/').get(controller.getAll);
+router.route('/:id').get(controller.getById);
+router.route('/').post(controller.create);
+router.route('/:id').patch(controller.update);
+router.route('/:id').delete(controller.remove);
 
 module.exports = router; 
