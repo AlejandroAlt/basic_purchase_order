@@ -1,8 +1,8 @@
-const {Model, DataTypes, Sequelize} = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 
 const ORDER_TABLE = 'purchase_orders';
 
-const orderSchema = {
+const orderModel = {
     poId: {
         allowNull: false,
         autoIncrement: true,
@@ -44,7 +44,9 @@ const orderSchema = {
         type: DataTypes.INTEGER,
         field: 'usr_id',
         defaultValue: 0
-    }
+    },
+    createdAt: { type: DataTypes.DATE, field: 'created_at' },
+    updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
 }
 
 class Order extends Model {
@@ -62,4 +64,4 @@ class Order extends Model {
     }
 }
 
-module.exports = {ORDER_TABLE, orderSchema, Order};
+module.exports = {ORDER_TABLE, orderModel, Order};

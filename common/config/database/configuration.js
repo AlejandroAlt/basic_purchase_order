@@ -1,4 +1,3 @@
-const { join } = require('path');
 const path = require('path');
 const Sequelize = require('sequelize');
 const config = require(path.join(

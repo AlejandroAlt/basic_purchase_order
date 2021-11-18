@@ -1,15 +1,15 @@
-const {User, userSchema } = require('./user.model');
-const {Product, productSchema } = require('./product.model');
-const {Order, orderSchema } = require('./order.model');
-const {Role, roleSchema } = require('./role.model');
-const {OrderStatus, orderStatusSchema } = require('./orderstatus.model');
+const {User, userModel } = require('./user.model');
+const {Product, productModel } = require('./product.model');
+const {Order, orderModel } = require('./order.model');
+const {Role, roleModel } = require('./role.model');
+const {OrderStatus, orderStatusModel } = require('./orderstatus.model');
 
 function initialModels(sequelize){
-    User.init(userSchema, User.config(sequelize));
-    Product.init(productSchema, Product.config(sequelize));
-    Order.init(orderSchema, Order.config(sequelize));
-    Role.init(roleSchema, Role.config(sequelize));
-    OrderStatus.init(orderStatusSchema, OrderStatus.config(sequelize));
+    User.init(userModel, User.config(sequelize));
+    Product.init(productModel, Product.config(sequelize));
+    Order.init(orderModel, Order.config(sequelize));
+    Role.init(roleModel, Role.config(sequelize));
+    OrderStatus.init(orderStatusModel, OrderStatus.config(sequelize));
 }
 
 module.exports = initialModels;

@@ -1,8 +1,8 @@
-const {Model, DataTypes, Sequelize} = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 
 const ROLE_TABLE = 'user_roles';
 
-const roleSchema = {
+const roleModel = {
     rolId: {
         allowNull: false,
         autoIncrement: true,
@@ -15,7 +15,9 @@ const roleSchema = {
         type: DataTypes.STRING,
         unique: true,
         field: 'rol_name'
-    }
+    },
+    createdAt: { type: DataTypes.DATE, field: 'created_at' },
+    updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
 }
 
 class Role extends Model {
@@ -33,4 +35,4 @@ class Role extends Model {
     }
 }
 
-module.exports = {ROLE_TABLE, roleSchema, Role};
+module.exports = {ROLE_TABLE, roleModel, Role};

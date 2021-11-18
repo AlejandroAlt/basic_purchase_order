@@ -1,8 +1,8 @@
-const {Model,DataTypes,Sequelize} = require('sequelize');
+const {Model,DataTypes} = require('sequelize');
 
 const USER_TABLE = 'users';
 
-const userSchema = {
+const userModel = {
     usrId: {
         allowNull: false,
         autoIncrement: true,
@@ -42,7 +42,9 @@ const userSchema = {
         type: DataTypes.INTEGER,
         field: 'rol_id',
         defaultValue: 2
-    }
+    },
+    createdAt: { type: DataTypes.DATE, field: 'created_at' },
+    updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
 }
 
 class User extends Model {
@@ -60,4 +62,4 @@ class User extends Model {
     }
 }
 
-module.exports = {USER_TABLE, userSchema, User};
+module.exports = {USER_TABLE, userModel, User};
