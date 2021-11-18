@@ -1,8 +1,8 @@
 const express = require ('express');
 const router = express.Router();
 
-const OrderStatusController = require('./../controllers/orderstatus.controller');
-const controller = new OrderStatusController();
+const orderStatusController = require('./../controllers/orderstatus.controller');
+const controller = new orderStatusController();
 
 router.route ('/').get(controller.getAll);
 router.route('/:id').get(controller.getById);

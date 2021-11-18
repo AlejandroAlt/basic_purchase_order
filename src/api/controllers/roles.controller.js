@@ -1,7 +1,7 @@
 const path = require('path');
 
-const RolesService = require('./../services/roles.services');
-const service = new RolesService();
+const rolesService = require('./../services/roles.services');
+const service = new rolesService();
 
 class RolesController {
     constructor() {}

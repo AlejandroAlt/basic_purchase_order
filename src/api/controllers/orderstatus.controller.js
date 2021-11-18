@@ -1,7 +1,7 @@
 const path = require('path');
 
-const OrderStatusService = require('./../services/orderstatus.services');
-const service = new OrderStatusService();
+const orderStatusService = require('./../services/orderstatus.services');
+const service = new orderStatusService();
 
 class OrderStatusController {
     constructor() {}

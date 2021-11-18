@@ -1,7 +1,7 @@
 const path = require('path');
 
-const ProductsService = require('./../services/products.services')
-const service = new ProductsService();
+const productsService = require('./../services/products.services')
+const service = new productsService();
 
 class ProductsController {
     constructor(){}

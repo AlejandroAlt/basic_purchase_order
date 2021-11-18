@@ -59,7 +59,7 @@ class Order extends Model {
             sequelize,
             tableName: ORDER_TABLE,
             modelName: 'Order',
-            timestamps: false
+            timestamps: true
         }
     }
 }

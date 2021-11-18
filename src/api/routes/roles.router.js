@@ -1,8 +1,8 @@
 const express = require ('express');
 const router = express.Router();
 
-const RolesController = require('./../controllers/roles.controller');
-const controller = new RolesController();
+const rolesController = require('./../controllers/roles.controller');
+const controller = new rolesController();
 
 router.route ('/').get(controller.getAll);
 router.route('/:id').get(controller.getById);
