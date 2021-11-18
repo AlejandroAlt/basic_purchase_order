@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "migrations:generate": "npx sequelize migration:create --name",
+    "migrations:run": "npx sequelize-cli db:migrate",
+    "migrations:revert": "npx sequelize-cli db:migrate:undo"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,7 @@
     "sequelize": "^6.7.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "sequelize-cli": "^6.3.0"
   }
 }

@@ -1,0 +1,24 @@
+{
+    "Database": {
+        "database": "",
+        "username": "",
+        "password": "",
+        "connection": {
+            "host": "",
+            "port": 5432,
+            "dialect": "postgres",
+            "pool": {
+                "max": 5,
+                "min": 0,
+                "acquire": 30000,
+                "idle": 10000
+            },
+            "dialectOptions": {
+                "useUTC": true,
+                "dateStrings": true,
+                "typeCast": true
+            },
+            "timezone": "-05:00"
+        }
+    }
+}

@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,node
 
+### Config files ###
+common/config/environments
+
 ### Linux ###
 *~
 
@@ -199,3 +202,4 @@ $RECYCLE.BIN/
 postgres_data
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node
+common/config/environments/development.config.json
