@@ -1,4 +1,5 @@
 const path = require('path');
+const bcrypt = require('bcrypt');
 
 const {models} = require(path.join(
     process.cwd(),
@@ -8,8 +9,13 @@ const {models} = require(path.join(
 class UsersService{
     constructor() {}
 
-    async create(data){
-        const newUser = await models.User.create(data);
+    async create(body){
+        const hashPassword = await bcrypt.hash(body.usrPassword,12)
+        const newUser = await models.User.create({
+            ...body,
+            usrPassword: hashPassword
+        });
+        delete newUser.dataValues.usrPassword;
         return newUser;
     }
 
@@ -20,6 +26,13 @@ class UsersService{
 
     async findOne(id){
         const user = await models.User.findByPk(id);
+        return user;
+    }
+
+    async findByEmail(usrEmail){
+        const user = await models.User.findOne({
+            where: {usrEmail}
+        });
         return user;
     }
 
