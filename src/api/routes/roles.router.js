@@ -1,28 +1,28 @@
 const express = require ('express');
 const router = express.Router();
-const passport = require ('passport');
 
+const { checkRoles } = require('../middlewares/checkRoles.middleware')
 const rolesController = require('./../controllers/roles.controller');
 const controller = new rolesController();
 
 router.route ('/').get(
-    passport.authenticate('jwt', {session: false,}),
+    checkRoles,
     controller.getAll);
     
 router.route('/:id').get(
-    passport.authenticate('jwt', {session: false,}),
+    checkRoles,
     controller.getById);
 
 router.route('/').post(
-    passport.authenticate('jwt', {session: false,}),
+    checkRoles,
     controller.create);
 
 router.route('/:id').patch(
-    passport.authenticate('jwt', {session: false,}),
+    checkRoles,
     controller.update);
 
 router.route('/:id').delete(
-    passport.authenticate('jwt', {session: false,}),
+    checkRoles,
     controller.remove);
 
 module.exports = router; 
